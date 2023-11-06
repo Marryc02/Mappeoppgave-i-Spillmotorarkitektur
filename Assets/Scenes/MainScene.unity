@@ -2984,6 +2984,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 725874668}
+  - component: {fileID: 725874669}
   m_Layer: 0
   m_Name: PlaceholderObject
   m_TagString: Untagged
@@ -3006,6 +3007,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &725874669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725874667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38dd722f21499ff40b092650de9c6bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wagonPrefab: {fileID: 5609620814522686723, guid: 8ac8515910a85d14cb69523170e58fce, type: 3}
+  smallTrainPrefab: {fileID: 2511097723353265522, guid: 619629eddfa48b047a8c60c9221a5bff, type: 3}
+  mediumTrainPrefab: {fileID: 131616850538404274, guid: a3a3a7d7d2a6fc0469d9ba2a598748d3, type: 3}
+  largeTrainPrefab: {fileID: 6809658179845181148, guid: 9e404183135d2e24ea6b65fb2277ed18, type: 3}
 --- !u!1 &818983633
 GameObject:
   m_ObjectHideFlags: 0
