@@ -13,11 +13,11 @@ public class MainScript : MonoBehaviour
     public GameObject largeTrainPrefab;
 
 
-    string trainType;
+    string trainType = "Small";
     float trainVelocity;
     float trainAcceleration;
 
-    int wagonAmount;
+    int wagonAmount = 3;
     float wagonMass;
 
 
@@ -28,19 +28,16 @@ public class MainScript : MonoBehaviour
     void Start()
     {
         if (trainType == "Small") {
-            //Instantiate(smallTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(smallTrainPrefab);
             trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
             trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
         }
         else if (trainType == "Medium") {
-            //Instantiate(mediumTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(mediumTrainPrefab);
             trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
             trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
         }
         else if (trainType == "Large") {
-            //Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(largeTrainPrefab);
             trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
             trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
@@ -52,7 +49,7 @@ public class MainScript : MonoBehaviour
         for (int i = 0; i < wagonAmount; i++)
         {
             trainAndWagons.Add(wagonPrefab);
-            trainAndWagons[i].GetComponent<Rigidbody>().mass = wagonMass;
+            //trainAndWagons[i].GetComponent<Rigidbody>().mass = wagonMass;
         }
 
         for (int i = 0; i < trainAndWagons.Count; i++)
