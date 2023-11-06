@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class MainScript : MonoBehaviour
 {
-
-
-
     public GameObject wagonPrefab;
     public GameObject smallTrainPrefab;
     public GameObject mediumTrainPrefab;
@@ -18,7 +15,7 @@ public class MainScript : MonoBehaviour
 
     string trainType;
     float trainVelocity;
-    float trainAccelration;
+    float trainAcceleration;
 
     int wagonAmount;
     float wagonMass;
@@ -33,17 +30,20 @@ public class MainScript : MonoBehaviour
         if (trainType == "Small") {
             //Instantiate(smallTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(smallTrainPrefab);
-            trainAndWagons[0].GetComponent<TrainClassScript>().trainClassInstance.velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
         }
         else if (trainType == "Medium") {
             //Instantiate(mediumTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(mediumTrainPrefab);
             trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
         }
         else if (trainType == "Large") {
             //Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity);
             trainAndWagons.Add(largeTrainPrefab);
             trainAndWagons[0].GetComponent<TrainClassScript>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<TrainClassScript>().acceleration = trainAcceleration;
         }
         else {
             Debug.Log("No train type selected!");

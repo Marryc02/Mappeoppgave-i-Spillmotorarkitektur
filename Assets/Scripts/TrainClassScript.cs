@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class TrainClassScript : MonoBehaviour
 {
-    public TrainClassScript trainClassInstance;
-
-    [SerializeField] float velocity;
-    [SerializeField] float acceleration;
-    [SerializeField] float givenMass;
+    public float velocity;
+    public float acceleration;
+    public float givenMass;
 
     void Start() {
        GetComponent<Rigidbody>().mass = givenMass;
