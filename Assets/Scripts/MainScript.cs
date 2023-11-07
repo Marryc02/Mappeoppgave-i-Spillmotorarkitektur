@@ -23,10 +23,11 @@ public class MainScript : MonoBehaviour
 
 
     List<GameObject> trainAndWagons;
+    bool trainsAndWagonsInstantiated = false;
 
 
     void SpawnTrainAndWagons()
-    {
+    {   
         // Adds a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
         if (trainType == "Small") {
             trainAndWagons.Add(smallTrainPrefab);
@@ -62,13 +63,18 @@ public class MainScript : MonoBehaviour
                 trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
             }
         }
+
+        trainsAndWagonsInstantiated = true;
     }
 
     // Generates a value for acceleration every FixedUpdate and applies it to the train's rigidbody's velocity.
     private void FixedUpdate() {
-        lastVelocity = GetComponent<Rigidbody>().velocity;
-        trainAcceleration = (GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
+        if (trainsAndWagonsInstantiated == true)
+        {
+            lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
+            trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
 
-        trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration;
+            trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
+        }
     }
 }
