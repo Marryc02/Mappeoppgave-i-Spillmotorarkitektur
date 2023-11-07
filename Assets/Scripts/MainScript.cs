@@ -53,7 +53,7 @@ public class MainScript : MonoBehaviour
 
         for (int i = 0; i < trainAndWagons.Count; i++)
         {
-            Instantiate(trainAndWagons[i], new Vector3(0, 0, i + i), quaternion.identity);
+            Instantiate(trainAndWagons[i], new Vector3(0, 0, i * 2), quaternion.identity);
 
             if (i != 0)
             {
