@@ -88,6 +88,7 @@ public class MainScript : MonoBehaviour
 
             trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
         }
+        
         // We need to only load these values once
         if (hasValidTrainInfo == false)
         {
