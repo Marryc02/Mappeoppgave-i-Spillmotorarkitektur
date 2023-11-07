@@ -12,6 +12,9 @@ public class MainScript : MonoBehaviour
     public GameObject mediumTrainPrefab;
     public GameObject largeTrainPrefab;
 
+    UIScript UIValues;
+
+    [SerializeField] Canvas UIRef;
 
     string trainType;
     Vector3 trainVelocity;
@@ -24,20 +27,29 @@ public class MainScript : MonoBehaviour
 
     List<GameObject> trainAndWagons;
     bool trainsAndWagonsInstantiated = false;
+    bool hasValidTrainInfo = false;
 
+    void Start()
+    {
+        UIValues = UIRef.GetComponent<UIScript>();
+        if (UIValues == null)
+        {
+            Debug.Log("UI Reference is MainScript returned null!");
+        }
+    }
 
     void SpawnTrainAndWagons()
     {   
         // Adds a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
-        if (trainType == "Small") {
+        if (trainType == "Small Train") {
             trainAndWagons.Add(smallTrainPrefab);
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
-        else if (trainType == "Medium") {
+        else if (trainType == "Medium Train") {
             trainAndWagons.Add(mediumTrainPrefab);
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
-        else if (trainType == "Large") {
+        else if (trainType == "Large Train") {
             trainAndWagons.Add(largeTrainPrefab);
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
@@ -75,6 +87,22 @@ public class MainScript : MonoBehaviour
             //trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
 
             trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
+        }
+        // We need to only load these values once
+        if (hasValidTrainInfo == false)
+        {
+            // Now to check if the packet recieved from the UI is valid
+            if (UIValues.shippingPacket.validPacket == true)
+            {
+                // Assigning the values
+                trainVelocity = new Vector3(UIValues.shippingPacket.startVel, 0, 0);
+                trainAcceleration = new Vector3(UIValues.shippingPacket.startAcc, 0, 0);
+                trainType = UIValues.shippingPacket.trainSelected;
+                wagonMass = UIValues.shippingPacket.wagonWeight;
+                wagonAmount = UIValues.shippingPacket.numWagons;
+                Debug.Log("Values added");
+                hasValidTrainInfo = true;
+            }
         }
     }
 }

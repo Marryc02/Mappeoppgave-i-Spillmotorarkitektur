@@ -59,15 +59,17 @@ public class UIScript : MonoBehaviour
     SettingsPacket validPacket;
     SettingsPacket invalidPacket = new SettingsPacket(false);
 
+    public SettingsPacket shippingPacket;
+
     void Awake() 
     {
         ErrorText.enabled = false;
+        shippingPacket = invalidPacket;
         StartButton.onClick.AddListener(StartSim);
     }
 
     void StartSim()
     {
-
         int iTest;
         float fTest;
         
@@ -86,7 +88,6 @@ public class UIScript : MonoBehaviour
                 UpdateErrorText(0);
                 return; 
             }
-            
         } 
         else 
         {
@@ -166,7 +167,7 @@ public class UIScript : MonoBehaviour
             UpdateErrorText(6, "Slope length must be a number");
             return;
         }
-        
+
         ErrorText.enabled = false;
 
         validPacket = new SettingsPacket
@@ -189,7 +190,7 @@ public class UIScript : MonoBehaviour
         Debug.Log("Slope length: " + validPacket.slopeLength + "m");
         Debug.Log("Selected train: " + validPacket.trainSelected);
 
-        
+        shippingPacket = validPacket;
     }
 
     SettingsPacket GetPackage(SettingsPacket package)
