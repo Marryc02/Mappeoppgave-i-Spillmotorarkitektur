@@ -24,8 +24,7 @@ public class MainScript : MonoBehaviour
     List<GameObject> trainAndWagons;
 
 
-    // Start is called before the first frame update
-    void Start()
+    void SpawnTrainAndWagons()
     {
         if (trainType == "Small") {
             trainAndWagons.Add(smallTrainPrefab);
@@ -61,11 +60,5 @@ public class MainScript : MonoBehaviour
                 trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
