@@ -3019,10 +3019,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38dd722f21499ff40b092650de9c6bc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wagonPrefab: {fileID: 1055300240919193022, guid: 8ac8515910a85d14cb69523170e58fce, type: 3}
-  smallTrainPrefab: {fileID: 2511097723353265522, guid: 619629eddfa48b047a8c60c9221a5bff, type: 3}
-  mediumTrainPrefab: {fileID: 131616850538404274, guid: a3a3a7d7d2a6fc0469d9ba2a598748d3, type: 3}
-  largeTrainPrefab: {fileID: 6809658179845181148, guid: 9e404183135d2e24ea6b65fb2277ed18, type: 3}
+  wagonPrefab: {fileID: 2580347541406426185, guid: 8ac8515910a85d14cb69523170e58fce, type: 3}
+  smallTrainPrefab: {fileID: 228002404785455462, guid: 023039d2fdf79d44f964978b63356ec7, type: 3}
+  mediumTrainPrefab: {fileID: 4455067998295142081, guid: aff7f9888add63a4fa8c0fffd111071f, type: 3}
+  largeTrainPrefab: {fileID: 4567993764459395278, guid: 76f458754c51e5a46ab289ee37955fe0, type: 3}
 --- !u!1 &818983633
 GameObject:
   m_ObjectHideFlags: 0
