@@ -57,7 +57,7 @@ public class MainScript : MonoBehaviour
         {
             Instantiate(trainAndWagons[i], new Vector3(0, 0, i * 2), quaternion.identity);
 
-            // Connects the rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
+            // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
             if (i != 0)
             {
                 trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
@@ -67,7 +67,7 @@ public class MainScript : MonoBehaviour
         trainsAndWagonsInstantiated = true;
     }
 
-    // Generates a value for acceleration every FixedUpdate and applies it to the train's rigidbody's velocity.
+    // Applies acceleration to the Rigidbody's velocity ever FixedUpdate if the train and its wagons have been instantiated.
     private void FixedUpdate() {
         if (trainsAndWagonsInstantiated == true)
         {
