@@ -13,14 +13,12 @@ public class MainScript : MonoBehaviour
     public GameObject largeTrainPrefab;
 
 
-    string trainType = "Small";
+    string trainType;
     Vector3 trainVelocity;
-    Vector3 lastVelocity;
-    bool hasBeenAssignedAcceleration = false;
+    //Vector3 lastVelocity;
     Vector3 trainAcceleration;
 
-
-    int wagonAmount = 3;
+    int wagonAmount;
     float wagonMass;
 
 
@@ -73,15 +71,10 @@ public class MainScript : MonoBehaviour
     private void FixedUpdate() {
         if (trainsAndWagonsInstantiated == true)
         {
-            if (!hasBeenAssignedAcceleration)
-            {
-                lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
-                trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
-            }
-            else
-            {
-                trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
-            }
+            //lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
+            //trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
+
+            trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
         }
     }
 }
