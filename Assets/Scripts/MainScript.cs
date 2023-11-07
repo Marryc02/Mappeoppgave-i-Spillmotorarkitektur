@@ -16,7 +16,9 @@ public class MainScript : MonoBehaviour
     string trainType = "Small";
     Vector3 trainVelocity;
     Vector3 lastVelocity;
+    bool hasBeenAssignedAcceleration = false;
     Vector3 trainAcceleration;
+
 
     int wagonAmount = 3;
     float wagonMass;
@@ -71,10 +73,15 @@ public class MainScript : MonoBehaviour
     private void FixedUpdate() {
         if (trainsAndWagonsInstantiated == true)
         {
-            lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
-            trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
-
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
+            if (!hasBeenAssignedAcceleration)
+            {
+                lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
+                trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
+            }
+            else
+            {
+                trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
+            }
         }
     }
 }
