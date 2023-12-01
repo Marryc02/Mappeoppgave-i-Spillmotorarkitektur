@@ -36,6 +36,7 @@ public class MainScript : MonoBehaviour
         {
             Debug.Log("UI Reference is MainScript returned null!");
         }
+        trainAndWagons = new List<GameObject>();
     }
 
     void SpawnTrainAndWagons()
@@ -65,16 +66,29 @@ public class MainScript : MonoBehaviour
         }
 
         // Instantiates the trainAndWagons-List with spacing in-between all the different cubes (train/wagons).
-        for (int i = 0; i < trainAndWagons.Count; i++)
-        {
-            Instantiate(trainAndWagons[i], new Vector3(0, 0, i * 2), quaternion.identity);
+        // for (int i = 0; i < trainAndWagons.Count; i++)
+        // {
+        //     Instantiate(trainAndWagons[i], new Vector3(0, 0, i * 2), quaternion.identity);
 
-            // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
-            if (i != 0)
-            {
-                trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
-            }
-        }
+        //     // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
+        //     if (i != 0)
+        //     {
+        //         trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
+        //         Debug.Log("Run through");
+        //     }
+        // }
+
+        // int x = 0;
+
+        // // Essentially only keep going through the while loop if x + 1 can be a valid index
+        // while (x + 1 < trainAndWagons.Count - 1)
+        // {
+        //     Instantiate(trainAndWagons[x], new Vector3(0, 0, x * 2), quaternion.identity);
+        //     // connectedBody might instead be connectedAnchor, it at least won't make
+        //     // a connection using connectedBody right now.
+        //     trainAndWagons[x].GetComponent<HingeJoint>().connectedBody = trainAndWagons[x+1].GetComponent<Rigidbody>();
+        //     x++;
+        // }
 
         trainsAndWagonsInstantiated = true;
     }
@@ -103,6 +117,7 @@ public class MainScript : MonoBehaviour
                 wagonAmount = UIValues.shippingPacket.numWagons;
                 Debug.Log("Values added");
                 hasValidTrainInfo = true;
+                SpawnTrainAndWagons();
             }
         }
     }
