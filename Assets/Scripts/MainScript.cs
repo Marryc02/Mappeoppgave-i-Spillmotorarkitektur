@@ -70,17 +70,17 @@ public class MainScript : MonoBehaviour
 
     void SpawnTrainAndWagons()
     {   
-        // Adds a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
+        // Adds an instance of a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
         if (trainType == "Small Train") {
-            trainAndWagons.Add(smallTrainPrefab);
+            trainAndWagons.Add(Instantiate(smallTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
         else if (trainType == "Medium Train") {
-            trainAndWagons.Add(mediumTrainPrefab);
+            trainAndWagons.Add(Instantiate(mediumTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
         else if (trainType == "Large Train") {
-            trainAndWagons.Add(largeTrainPrefab);
+            trainAndWagons.Add(Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
             trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
         }
         // Ensures an actual train type is selected.
@@ -88,42 +88,22 @@ public class MainScript : MonoBehaviour
             Debug.Log("No train type selected!");
         }
 
-        // Adds wagons based on the specified amount of wagons the user wants to add to the trainAndWagons-List.
+        // Adds an instance of the wagon prefab to the trainAndWagons list based on the specified amount of wagons the user wants.
         for (int i = 0; i < wagonAmount; i++)
         {
-            trainAndWagons.Add(wagonPrefab);
+            trainAndWagons.Add(Instantiate(wagonPrefab, new Vector3((i + 1) * 2, 0, 0), quaternion.identity));
         }
-
-        // Instantiates the trainAndWagons-List with spacing in-between all the different cubes (train/wagons).
-        for (int i = 0; i < trainAndWagons.Count; i++)
+        
+        // Connects the hinges of the train/wagons, starting at the wagon in the back to the train in the front.
+        for (int i = trainAndWagons.Count - 1; i > 0; i--)
         {
-            if (i == 0)
+            if (i != 0)
             {
-                Instantiate(trainAndWagons[i], new Vector3(0, 0, i * 2), quaternion.identity);
-            }
-            else
-            {
-                Instantiate(trainAndWagons[i], new Vector3(trainAndWagons[i-1].transform.position.x, 0, i * 2), quaternion.identity);
-                
                 // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
-                trainAndWagons[i-1].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i].GetComponent<Rigidbody>();
-                Debug.Log("Run through");
+                trainAndWagons[i].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i - 1].GetComponent<Rigidbody>();
+                Debug.Log("Connected Rigidody " + (i - 1) + " to HingeJoint " + i);
             }
         }
-
-        /*
-        int x = 0;
-
-        // Essentially only keep going through the while loop if x + 1 can be a valid index
-        while (x + 1 < trainAndWagons.Count - 1)
-        {
-            Instantiate(trainAndWagons[x], new Vector3(0, 0, x * 2), quaternion.identity);
-            // connectedBody might instead be connectedAnchor, it at least won't make
-            // a connection using connectedBody right now.
-            trainAndWagons[x].GetComponent<HingeJoint>().connectedBody = trainAndWagons[x+1].GetComponent<Rigidbody>();
-            x++;
-        }
-        */
 
         trainsAndWagonsInstantiated = true;
     }
