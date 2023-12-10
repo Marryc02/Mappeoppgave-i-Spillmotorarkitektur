@@ -46,7 +46,7 @@ public class MainScript : MonoBehaviour
             //lastVelocity = trainAndWagons[0].GetComponent<Rigidbody>().velocity;
             //trainAcceleration = (trainAndWagons[0].GetComponent<Rigidbody>().velocity - lastVelocity) / Time.fixedDeltaTime;
 
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
+            //trainAndWagons[0].GetComponent<Rigidbody>().velocity += trainAcceleration; 
         }
         
         // We need to only load these values once
@@ -56,8 +56,10 @@ public class MainScript : MonoBehaviour
             if (UIValues.shippingPacket.validPacket == true)
             {
                 // Assigning the values
-                trainVelocity = new Vector3(UIValues.shippingPacket.startVel, 0, 0);
-                trainAcceleration = new Vector3(UIValues.shippingPacket.startAcc, 0, 0);
+                //trainVelocity = new Vector3(UIValues.shippingPacket.startVel, 0, 0);
+                //trainAcceleration = new Vector3(UIValues.shippingPacket.startAcc, 0, 0);
+                trainVelocity = new Vector3(0, 0, 0);
+                trainAcceleration = new Vector3(0, 0, 0);
                 trainType = UIValues.shippingPacket.trainSelected;
                 wagonMass = UIValues.shippingPacket.wagonWeight;
                 wagonAmount = UIValues.shippingPacket.numWagons;
