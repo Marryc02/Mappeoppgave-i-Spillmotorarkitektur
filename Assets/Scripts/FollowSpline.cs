@@ -13,8 +13,8 @@ public class FollowSpline : MonoBehaviour
 
     List<BezierKnot> knots;
 
-    private float slopeAngle = 5.0f;
-    private float slopeLength = 50.0f;
+    private float slopeAngle = 15.0f;
+    private float slopeLength = 150.0f;
 
     void Awake() 
     {
@@ -23,10 +23,12 @@ public class FollowSpline : MonoBehaviour
             knots = SplineRef.Spline.ToArray().ToList();
             if (knots.Count != 0)
             {
+                /*
                 for (int i = 0; i < knots.Count; i++)
                 {
                     Debug.Log("Knot " + (i + 1) + ": " + knots[i].Position);
                 }
+                */
                 MoveKnots();
             }
         }
@@ -34,14 +36,19 @@ public class FollowSpline : MonoBehaviour
 
     void MoveKnots()
     {
-        float x = Mathf.Sin(slopeAngle);
-        float y = Mathf.Cos(slopeAngle);
-        Vector3 p = new Vector3(x, y, 0) * slopeLength;
-        var knot = knots[2];
-        knot.Position = SplineRef.transform.InverseTransformDirection(p);
-        SplineRef.Spline.SetKnot(2, knot);
-        knot = knots[3];
-        knot.Position = knots[2].Position + new float3(-40.0f, 0.0f, 0.0f);
-        SplineRef.Spline.SetKnot(3, knot);
+        float x = Mathf.Cos(slopeAngle * Mathf.Deg2Rad);
+        float y = Mathf.Sin(slopeAngle * Mathf.Deg2Rad);
+
+        // x here is negative, since we're going in the negative x-axis in-game
+        Vector3 p = new Vector3(-x, y, 0) * slopeLength;
+
+        var knot1 = knots[2];
+        knot1.Position = SplineRef.transform.InverseTransformDirection(p);
+        SplineRef.Spline.SetKnot(2, knot1);
+
+        var knot2 = knots[3];
+        knot2.Position = SplineRef.transform.InverseTransformDirection(p + new Vector3(-40.0f, 0.0f, 0.0f));
+
+        SplineRef.Spline.SetKnot(3, knot2);
     }
 }
