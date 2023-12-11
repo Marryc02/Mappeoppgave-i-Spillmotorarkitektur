@@ -11,9 +11,9 @@ public class FollowSpline : MonoBehaviour
     
     private SplineContainer slope = null;
 
-    float velocity = MainScript.mainInstance.trainStartingVelocity;
+    float velocity;
     float acceleration;
-    float mass = MainScript.mainInstance.trainMass + (MainScript.mainInstance.wagonMass * MainScript.mainInstance.wagonAmount);
+    float mass;
     Vector3 normal;
     Vector3 unitNormal;
     float normalForce;
@@ -23,6 +23,9 @@ public class FollowSpline : MonoBehaviour
 
     void Awake()
     {
+        velocity = MainScript.mainInstance.trainStartingVelocity;
+        mass = MainScript.mainInstance.trainMass + (MainScript.mainInstance.wagonMass * MainScript.mainInstance.wagonAmount);
+
         GameObject splineObject = GameObject.FindGameObjectWithTag("Slope");
         if (splineObject != null) { slope = splineObject.GetComponent<SplineContainer>(); }
         else { Debug.Log("GameObject containing spline not found!"); }
