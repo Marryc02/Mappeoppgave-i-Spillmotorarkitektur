@@ -39,6 +39,7 @@ public class FollowSpline : MonoBehaviour
         {
             Debug.Log("GameObject could not find spline component!");
         }
+        
     }
     
     void FixedUpdate()
@@ -56,7 +57,7 @@ public class FollowSpline : MonoBehaviour
         var rotation = Quaternion.Inverse(Quaternion.LookRotation(uForward, uUp));
         transform.rotation = Quaternion.LookRotation(forward, up) * rotation;
 
-        gravitationalForce = gravity * mass;
+        gravitationalForce = -gravity * mass;
         // First find the normal in the current point, then do the following:
             
         Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
@@ -65,7 +66,9 @@ public class FollowSpline : MonoBehaviour
 
         sumOfAllForce = gravitationalForce + normalForce;
         acceleration = sumOfAllForce / mass;
+        velocity += acceleration;
+        Debug.Log("Acceleration: " + acceleration + " | Velocity: " + velocity);
 
-        GetComponent<Rigidbody>().AddForce(transform.forward);
+        GetComponent<Rigidbody>().AddForce(transform.forward * velocity);
     }
 }
