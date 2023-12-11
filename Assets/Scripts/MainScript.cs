@@ -95,10 +95,11 @@ public class MainScript : MonoBehaviour
         }
 
         // Adds an instance of the wagon prefab to the trainAndWagons list based on the specified amount of wagons the user wants.
-        // for (int i = 0; i < wagonAmount; i++)
-        // {
-        //     trainAndWagons.Add(Instantiate(wagonPrefab, new Vector3((i + 1) * 2, 0, 0), quaternion.identity));
-        // }
+        for (int i = 0; i < wagonAmount; i++)
+        {
+            trainAndWagons.Add(Instantiate(wagonPrefab, new Vector3((i + 1) * 2, 0, 0), quaternion.identity));
+            trainAndWagons[i].GetComponent<FollowSpline>().spawnOffset = i * -5.0f;
+        }
         
         // Connects the hinges of the train/wagons, starting at the wagon in the back to the train in the front.
         // for (int i = trainAndWagons.Count - 1; i > 0; i--)

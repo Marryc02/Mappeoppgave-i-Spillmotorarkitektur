@@ -7,8 +7,6 @@ using UnityEngine.Splines;
 
 public class FollowSpline : MonoBehaviour
 {
-    [SerializeField] SplineAnimate splineAnimate;
-    
     private SplineContainer slope = null;
 
     float velocity;
@@ -21,6 +19,8 @@ public class FollowSpline : MonoBehaviour
     float gravitationalForce;
     float sumOfAllForce;
 
+    public float spawnOffset = 0.0f;
+
     void Awake()
     {
         velocity = MainScript.mainInstance.trainStartingVelocity;
@@ -30,16 +30,10 @@ public class FollowSpline : MonoBehaviour
         if (splineObject != null) { slope = splineObject.GetComponent<SplineContainer>(); }
         else { Debug.Log("GameObject containing spline not found!"); }
 
-        if (slope != null)
-        {
-            splineAnimate.Container = slope;
-            splineAnimate.MaxSpeed = velocity;
-        }
-        else
+        if (slope == null)
         {
             Debug.Log("GameObject could not find spline component!");
-        }
-        
+        }        
     }
     
     void FixedUpdate()
@@ -47,7 +41,7 @@ public class FollowSpline : MonoBehaviour
         var native = new NativeSpline(slope.Spline);
         float distance = SplineUtility.GetNearestPoint(native, transform.position, out float3 nearest, out float t);
         transform.position = nearest;
-
+        Debug.Log("Nearest: " + nearest);
         Vector3 forward = Vector3.Normalize(slope.EvaluateTangent(t));
         Vector3 up = slope.EvaluateUpVector(t);
 
