@@ -58,16 +58,20 @@ public class SlopeCreator : MonoBehaviour
         // find the position of the new point.
         Vector3 p = new Vector3(-x, y, 0) * slopeLength;
 
-
         // This knot is at the top of the slope.
         var knot1 = knots[2];
-        knot1.Position = SplineRef.transform.InverseTransformDirection(p);
+        knot1.Position = SplineRef.transform.TransformDirection(p);
+        
+        Quaternion targetRot = new Quaternion(1, 1, 0, 1); // Ignore z
+        Debug.Log("Spline Quat: " + SplineRef.transform.rotation);
+        knot1.Rotation = Quaternion.Inverse(SplineRef.transform.rotation);
+        
+
         SplineRef.Spline.SetKnot(2, knot1);
 
         // This knot is here to create a flat surface behind the last knot
         var knot2 = knots[3];
         knot2.Position = SplineRef.transform.InverseTransformDirection(p + new Vector3(-40.0f, 0.0f, 0.0f));
-
         SplineRef.Spline.SetKnot(3, knot2);
     }
 
