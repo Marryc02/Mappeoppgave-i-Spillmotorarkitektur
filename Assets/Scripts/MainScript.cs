@@ -7,6 +7,9 @@ using UnityEngine;
 
 public class MainScript : MonoBehaviour
 {
+
+    public static MainScript mainInstance { get; private set; }
+
     public GameObject wagonPrefab;
     public GameObject smallTrainPrefab;
     public GameObject mediumTrainPrefab;
@@ -17,12 +20,11 @@ public class MainScript : MonoBehaviour
     [SerializeField] Canvas UIRef;
 
     string trainType;
-    Vector3 trainVelocity;
-    //Vector3 lastVelocity;
-    Vector3 trainAcceleration;
+    [HideInInspector] public float trainStartingVelocity;
+    [HideInInspector] public float trainMass;
 
-    int wagonAmount;
-    float wagonMass;
+    [HideInInspector] public int wagonAmount;
+    [HideInInspector] public float wagonMass;
 
 
     List<GameObject> trainAndWagons;
@@ -31,6 +33,8 @@ public class MainScript : MonoBehaviour
 
     void Start()
     {
+        mainInstance = this;
+
         UIValues = UIRef.GetComponent<UIScript>();
         if (UIValues == null)
         {
@@ -56,10 +60,7 @@ public class MainScript : MonoBehaviour
             if (UIValues.shippingPacket.validPacket == true)
             {
                 // Assigning the values
-                //trainVelocity = new Vector3(UIValues.shippingPacket.startVel, 0, 0);
-                //trainAcceleration = new Vector3(UIValues.shippingPacket.startAcc, 0, 0);
-                trainVelocity = new Vector3(0, 0, 0);
-                trainAcceleration = new Vector3(0, 0, 0);
+                trainStartingVelocity = UIValues.shippingPacket.startVel;
                 trainType = UIValues.shippingPacket.trainSelected;
                 wagonMass = UIValues.shippingPacket.wagonWeight;
                 wagonAmount = UIValues.shippingPacket.numWagons;
@@ -75,15 +76,18 @@ public class MainScript : MonoBehaviour
         // Adds an instance of a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
         if (trainType == "Small Train") {
             trainAndWagons.Add(Instantiate(smallTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            trainMass = 40000.0f;
         }
         else if (trainType == "Medium Train") {
             trainAndWagons.Add(Instantiate(mediumTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            trainMass = 60000.0f;
         }
         else if (trainType == "Large Train") {
             trainAndWagons.Add(Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainVelocity;
+            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            trainMass = 80000.0f;
         }
         // Ensures an actual train type is selected.
         else {
