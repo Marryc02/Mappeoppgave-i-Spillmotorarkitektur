@@ -53,7 +53,8 @@ public class FollowSpline : MonoBehaviour
         Vector3 uForward = new Vector3(0, 1, 0);
         Vector3 uUp = new Vector3(1, 0, 0);
 
-        var rotation = Quaternion.Inverse(Quaternion.LookRotation(forward, up));
+        var rotation = Quaternion.Inverse(Quaternion.LookRotation(uForward, uUp));
+        transform.rotation = Quaternion.LookRotation(forward, up) * rotation;
 
         gravitationalForce = gravity * mass;
         // First find the normal in the current point, then do the following:
@@ -65,6 +66,6 @@ public class FollowSpline : MonoBehaviour
         sumOfAllForce = gravitationalForce + normalForce;
         acceleration = sumOfAllForce / mass;
 
-        splineAnimate.MaxSpeed += acceleration;
+        //splineAnimate.MaxSpeed += acceleration;
     }
 }
