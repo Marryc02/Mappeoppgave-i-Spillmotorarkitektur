@@ -12,7 +12,6 @@ public class UIScript : MonoBehaviour
     [SerializeField] TMP_InputField NumWagons;
     [SerializeField] TMP_InputField WagonWeight;
     [SerializeField] TMP_InputField StartVel;
-    [SerializeField] TMP_InputField StartAcc;
     [SerializeField] TMP_InputField SlopeAngle;
     [SerializeField] TMP_InputField SlopeLength;
     [SerializeField] TMP_Dropdown TrainSelector;
@@ -125,21 +124,6 @@ public class UIScript : MonoBehaviour
             return;    
         }
 
-        if (float.TryParse(StartAcc.text, out fTest))
-        {
-            sAcc = float.Parse(StartAcc.text);
-            if (sAcc < 0.0f)
-            { 
-                UpdateErrorText(3);
-                return; 
-            }
-        } 
-        else 
-        {
-            UpdateErrorText(6, "Start acceleration must be a number");
-            return;
-        }
-
         if (float.TryParse(SlopeAngle.text, out fTest))
         {
             slAngle = float.Parse(SlopeAngle.text);
@@ -181,15 +165,14 @@ public class UIScript : MonoBehaviour
             TrainSelector.options[TrainSelector.value].text,
             true
         );
-
+        /*
         Debug.Log("Number of wagons: " + validPacket.numWagons);
         Debug.Log("Wagon weight: " + validPacket.wagonWeight + "kg");
         Debug.Log("Start velocity: " + validPacket.startVel + "km/h");
-        Debug.Log("Start acceleration: " + validPacket.startAcc + "m/s^2");
         Debug.Log("Slope angle: " + validPacket.slopeAngle + "degrees");
         Debug.Log("Slope length: " + validPacket.slopeLength + "m");
         Debug.Log("Selected train: " + validPacket.trainSelected);
-
+        */
         shippingPacket = validPacket;
     }
 
