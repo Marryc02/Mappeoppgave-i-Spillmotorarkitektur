@@ -76,17 +76,17 @@ public class MainScript : MonoBehaviour
         // Adds an instance of a prefab of either type "Small", "Medium" or "Large" to the trainAndWagons-List and assigfns a given velocity.
         if (trainType == "Small Train") {
             trainAndWagons.Add(Instantiate(smallTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = 40000.0f;
         }
         else if (trainType == "Medium Train") {
             trainAndWagons.Add(Instantiate(mediumTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = 60000.0f;
         }
         else if (trainType == "Large Train") {
             trainAndWagons.Add(Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
-            trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = 80000.0f;
         }
         // Ensures an actual train type is selected.
