@@ -37,6 +37,7 @@ public class FollowSpline : MonoBehaviour
             Debug.Log("GameObject could not find spline component!");
         }
     }
+    
     void FixedUpdate()
     {
         float distance = SplineUtility.GetNearestPoint(slope.Spline, transform.position, out float3 nearest, out float t);
