@@ -95,21 +95,21 @@ public class MainScript : MonoBehaviour
         }
 
         // Adds an instance of the wagon prefab to the trainAndWagons list based on the specified amount of wagons the user wants.
-        for (int i = 0; i < wagonAmount; i++)
-        {
-            trainAndWagons.Add(Instantiate(wagonPrefab, new Vector3((i + 1) * 2, 0, 0), quaternion.identity));
-        }
+        // for (int i = 0; i < wagonAmount; i++)
+        // {
+        //     trainAndWagons.Add(Instantiate(wagonPrefab, new Vector3((i + 1) * 2, 0, 0), quaternion.identity));
+        // }
         
         // Connects the hinges of the train/wagons, starting at the wagon in the back to the train in the front.
-        for (int i = trainAndWagons.Count - 1; i > 0; i--)
-        {
-            if (i != 0)
-            {
-                // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
-                trainAndWagons[i].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i - 1].GetComponent<Rigidbody>();
-                Debug.Log("Connected Rigidody " + (i - 1) + " to HingeJoint " + i);
-            }
-        }
+        // for (int i = trainAndWagons.Count - 1; i > 0; i--)
+        // {
+        //     if (i != 0)
+        //     {
+        //         // Connects the Rigidbodies of the next object (Wagon) to the previous object's Hinge Joint (Train/Wagon).
+        //         trainAndWagons[i].GetComponent<HingeJoint>().connectedBody = trainAndWagons[i - 1].GetComponent<Rigidbody>();
+        //         Debug.Log("Connected Rigidody " + (i - 1) + " to HingeJoint " + i);
+        //     }
+        // }
 
         trainsAndWagonsInstantiated = true;
     }

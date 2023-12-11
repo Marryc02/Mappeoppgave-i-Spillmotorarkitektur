@@ -43,29 +43,29 @@ public class FollowSpline : MonoBehaviour
     
     void FixedUpdate()
     {
-        float distance = SplineUtility.GetNearestPoint(slope.Spline, transform.position, out float3 nearest, out float t);
-        Debug.Log("Distance: " + distance);
+        var native = new NativeSpline(slope.Spline);
+        float distance = SplineUtility.GetNearestPoint(native, transform.position, out float3 nearest, out float t);
         transform.position = nearest;
 
         Vector3 forward = Vector3.Normalize(slope.EvaluateTangent(t));
         Vector3 up = slope.EvaluateUpVector(t);
 
-        Vector3 uForward = new Vector3(0, 1, 0);
-        Vector3 uUp = new Vector3(1, 0, 0);
+        Vector3 uForward = Vector3.forward;
+        Vector3 uUp = Vector3.up;
 
         var rotation = Quaternion.Inverse(Quaternion.LookRotation(uForward, uUp));
         transform.rotation = Quaternion.LookRotation(forward, up) * rotation;
 
         gravitationalForce = gravity * mass;
         // First find the normal in the current point, then do the following:
-            /*
-                unitNormal = normal.Normalize();
-                normalForce = -(gravitationalForce * unitNormal) * unitNormal;
-            */
-        //
+            
+        Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
+        unitNormal = slopeUp.normalized;
+        normalForce = - Vector3.Dot(gravitationalForce * unitNormal, unitNormal);
+
         sumOfAllForce = gravitationalForce + normalForce;
         acceleration = sumOfAllForce / mass;
 
-        //splineAnimate.MaxSpeed += acceleration;
+        GetComponent<Rigidbody>().AddForce(transform.forward);
     }
 }

@@ -3025,6 +3025,10 @@ MonoBehaviour:
   mediumTrainPrefab: {fileID: 4455067998295142081, guid: aff7f9888add63a4fa8c0fffd111071f, type: 3}
   largeTrainPrefab: {fileID: 4567993764459395278, guid: 76f458754c51e5a46ab289ee37955fe0, type: 3}
   UIRef: {fileID: 1860276623}
+  trainStartingVelocity: 0
+  trainMass: 0
+  wagonAmount: 0
+  wagonMass: 0
 --- !u!114 &725874670
 MonoBehaviour:
   m_ObjectHideFlags: 0
