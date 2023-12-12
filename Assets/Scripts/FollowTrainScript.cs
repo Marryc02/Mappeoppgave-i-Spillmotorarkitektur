@@ -7,12 +7,15 @@ public class FollowTrainScript : MonoBehaviour
     public GameObject train;
 
     // Update is called once per frame
-    void Update () 
+    void LateUpdate () 
     {
-        if (train == null)
+        if (train == null && MainScript.mainInstance.trainsAndWagonsInstantiated == true)
         {
             train = MainScript.mainInstance.trainAndWagons[0];
         }
-        transform.position = train.transform.position + new Vector3(-15.0f, 20.0f, -35.0f);
+        else if (train != null)
+        {
+            transform.position = train.transform.position + new Vector3(-15.0f, 20.0f, -35.0f);
+        }
     }
 }

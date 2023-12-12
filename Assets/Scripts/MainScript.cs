@@ -30,7 +30,7 @@ public class MainScript : MonoBehaviour
 
 
     [HideInInspector] public List<GameObject> trainAndWagons;
-    bool trainsAndWagonsInstantiated = false;
+    public bool trainsAndWagonsInstantiated = false;
     bool hasValidTrainInfo = false;
 
     void Start()
