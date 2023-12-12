@@ -11,7 +11,7 @@ public class FollowSpline : MonoBehaviour
 
     
     float mass;
-    float gravity = 9.81f;
+    float gravity = -9.81f;
     float gravitationalForce;
     Vector3 normal;
     Vector3 unitNormal;
@@ -56,7 +56,7 @@ public class FollowSpline : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(forward, up) * rotation;
 
         // Gets G, aka gravitational force.
-        gravitationalForce = -gravity * mass;
+        gravitationalForce = gravity * mass;
         
         // Finds N, aka normal force.
         Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
@@ -69,7 +69,7 @@ public class FollowSpline : MonoBehaviour
         // Adds all forces together and calculate a new speed based on them.
         sumOfAllForce = gravitationalForce + normalForce + friction;
         acceleration = sumOfAllForce / mass;
-        velocity += acceleration;
+        velocity += acceleration * Time.fixedDeltaTime;
         Debug.Log("Acceleration: " + acceleration + " | Velocity: " + velocity);
 
         GetComponent<Rigidbody>().AddForce(transform.forward * velocity);
