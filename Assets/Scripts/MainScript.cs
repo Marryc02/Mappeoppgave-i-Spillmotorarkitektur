@@ -14,6 +14,7 @@ public class MainScript : MonoBehaviour
     public GameObject smallTrainPrefab;
     public GameObject mediumTrainPrefab;
     public GameObject largeTrainPrefab;
+    public GameObject customTrainPrefab;
 
     UIScript UIValues;
 
@@ -22,6 +23,7 @@ public class MainScript : MonoBehaviour
     string trainType;
     [HideInInspector] public float trainStartingVelocity;
     [HideInInspector] public float trainMass;
+    [HideInInspector] public float customTrainMass;
 
     [HideInInspector] public int wagonAmount;
     [HideInInspector] public float wagonMass;
@@ -62,6 +64,7 @@ public class MainScript : MonoBehaviour
                 // Assigning the values
                 trainStartingVelocity = UIValues.shippingPacket.startVel;
                 trainType = UIValues.shippingPacket.trainSelected;
+                /*customTrainMass = ;*/
                 wagonMass = UIValues.shippingPacket.wagonWeight;
                 wagonAmount = UIValues.shippingPacket.numWagons;
                 Debug.Log("Values added");
@@ -88,6 +91,11 @@ public class MainScript : MonoBehaviour
             trainAndWagons.Add(Instantiate(largeTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
             //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = 80000.0f;
+        }
+        else if (trainType == "Custom Train" && customTrainMass != 0) {
+            trainAndWagons.Add(Instantiate(customTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
+            //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
+            trainMass = customTrainMass;
         }
         // Ensures an actual train type is selected.
         else {
