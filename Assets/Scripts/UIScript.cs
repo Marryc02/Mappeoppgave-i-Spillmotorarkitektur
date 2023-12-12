@@ -15,13 +15,14 @@ public class UIScript : MonoBehaviour
     [SerializeField] TMP_InputField SlopeAngle;
     [SerializeField] TMP_InputField SlopeLength;
     [SerializeField] TMP_Dropdown TrainSelector;
+    [SerializeField] TMP_InputField customTrainMass;
     [SerializeField] Button StartButton;
     [SerializeField] TMP_Text ErrorText;
 
     public struct SettingsPacket
     {
         public SettingsPacket(int nWagons, float wWeight, float sVel, float sAcc, 
-        float slAngle, float slLength, string tSelected, bool bValid)
+        float slAngle, float slLength, string tSelected, bool bValid, float CTMass)
         {
             numWagons = nWagons;
             wagonWeight = wWeight;
@@ -31,6 +32,7 @@ public class UIScript : MonoBehaviour
             slopeLength = slLength;
             trainSelected = tSelected;
             validPacket = bValid;
+            cTrainMass = CTMass;
         }
 
         public SettingsPacket(bool bValid)
@@ -43,6 +45,7 @@ public class UIScript : MonoBehaviour
             slopeLength = 0.0f;
             trainSelected = "";
             validPacket = false;
+            cTrainMass = 0.0f;
         }
 
         public int numWagons;
@@ -53,6 +56,7 @@ public class UIScript : MonoBehaviour
         public float slopeLength;
         public string trainSelected;
         public bool validPacket;
+        public float cTrainMass;
     }
 
     SettingsPacket validPacket;
@@ -78,6 +82,7 @@ public class UIScript : MonoBehaviour
         float sAcc = 0.0f;
         float slAngle = 0.0f;
         float slLength = 0.0f;
+        float ctMass = 0.0f;
 
         if (int.TryParse(NumWagons.text, out iTest))
         {
@@ -146,10 +151,29 @@ public class UIScript : MonoBehaviour
                 UpdateErrorText(5);
                 return; 
             }
-        } else 
+        } 
+        else 
         {
             UpdateErrorText(6, "Slope length must be a number");
             return;
+        }
+        if (TrainSelector.options[TrainSelector.value].text == "Custom Train")
+        {
+
+            if (float.TryParse(customTrainMass.text, out fTest))
+            {
+                ctMass = float.Parse(customTrainMass.text);
+                if (ctMass < 0.0f)
+                {
+                    UpdateErrorText(6, "Custom train mass must be greater than 0");
+                    return;
+                }
+            }
+            else
+            {
+                UpdateErrorText(7);
+                return;
+            }
         }
 
         ErrorText.enabled = false;
@@ -163,7 +187,8 @@ public class UIScript : MonoBehaviour
             slAngle,
             slLength,
             TrainSelector.options[TrainSelector.value].text,
-            true
+            true,
+            ctMass
         );
         /*
         Debug.Log("Number of wagons: " + validPacket.numWagons);
@@ -212,6 +237,10 @@ public class UIScript : MonoBehaviour
             case 6:
                 ErrorText.enabled = true;
                 ErrorText.text = message;
+                break;
+            case 7:
+                ErrorText.enabled = true;
+                ErrorText.text = "Custom train mass must be greater than 0";
                 break;
             default:
                 Debug.Log("Default switch case reached in UIScript.cs!");

@@ -92,7 +92,7 @@ public class MainScript : MonoBehaviour
             //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = 80000.0f;
         }
-        else if (trainType == "Custom Train" && customTrainMass != 0) {
+        else if (trainType == "Custom Train") {
             trainAndWagons.Add(Instantiate(customTrainPrefab, new Vector3(0, 0, 0), quaternion.identity));
             //trainAndWagons[0].GetComponent<Rigidbody>().velocity = trainStartingVelocity;
             trainMass = customTrainMass;

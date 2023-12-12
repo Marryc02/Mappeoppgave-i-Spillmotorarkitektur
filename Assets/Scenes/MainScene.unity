@@ -3356,9 +3356,11 @@ MonoBehaviour:
   smallTrainPrefab: {fileID: 228002404785455462, guid: 023039d2fdf79d44f964978b63356ec7, type: 3}
   mediumTrainPrefab: {fileID: 4455067998295142081, guid: aff7f9888add63a4fa8c0fffd111071f, type: 3}
   largeTrainPrefab: {fileID: 4567993764459395278, guid: 76f458754c51e5a46ab289ee37955fe0, type: 3}
+  customTrainPrefab: {fileID: 7874797317300172310, guid: 4e695314fc29a75489aa6cb2eb9810a8, type: 3}
   UIRef: {fileID: 1860276623}
   trainStartingVelocity: 0
   trainMass: 0
+  customTrainMass: 0
   wagonAmount: 0
   wagonMass: 0
 --- !u!114 &725874670
@@ -6805,6 +6807,7 @@ MonoBehaviour:
   SlopeAngle: {fileID: 954360358}
   SlopeLength: {fileID: 1093381558}
   TrainSelector: {fileID: 382633893}
+  customTrainMass: {fileID: 1786750852}
   StartButton: {fileID: 1455234875}
   ErrorText: {fileID: 1575263626}
 --- !u!1 &1864509032
