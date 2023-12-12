@@ -18,6 +18,8 @@ public class UIScript : MonoBehaviour
     [SerializeField] TMP_InputField customTrainMass;
     [SerializeField] Button StartButton;
     [SerializeField] TMP_Text ErrorText;
+    [SerializeField] GameObject SettingsPanel;
+    [SerializeField] GameObject StatsPanel;
 
     public struct SettingsPacket
     {
@@ -69,6 +71,10 @@ public class UIScript : MonoBehaviour
         ErrorText.enabled = false;
         shippingPacket = invalidPacket;
         StartButton.onClick.AddListener(StartSim);
+        SettingsPanel = this.transform.GetChild(0).gameObject;
+        SettingsPanel.SetActive(true);
+        StatsPanel = this.transform.GetChild(1).gameObject;
+        StatsPanel.SetActive(false);
     }
 
     void StartSim()
@@ -199,6 +205,9 @@ public class UIScript : MonoBehaviour
         Debug.Log("Selected train: " + validPacket.trainSelected);
         */
         shippingPacket = validPacket;
+
+        SettingsPanel.SetActive(false);
+        StatsPanel.SetActive(true);
     }
 
     SettingsPacket GetPackage(SettingsPacket package)
