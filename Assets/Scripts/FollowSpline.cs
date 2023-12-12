@@ -45,7 +45,7 @@ public class FollowSpline : MonoBehaviour
         var native = new NativeSpline(slope.Spline);
         float distance = SplineUtility.GetNearestPoint(native, transform.position, out float3 nearest, out float t);
         transform.position = nearest;
-        Debug.Log("Nearest: " + nearest);
+
         Vector3 forward = Vector3.Normalize(slope.EvaluateTangent(t));
         Vector3 up = slope.EvaluateUpVector(t);
 
@@ -59,15 +59,17 @@ public class FollowSpline : MonoBehaviour
         gravitationalForce = gravity * mass;
         
         // Finds N, aka normal force.
-        Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
-        unitNormal = slopeUp.normalized;
+        Vector3 slopeUp = slope.EvaluateTangent(t);
+        Vector3 norm = new Vector3(-slopeUp.y, slopeUp.x, 0.0f);
+
+        unitNormal = norm.normalized;
         normalForce = Vector3.Dot(-(gravitationalForce * unitNormal), unitNormal);
 
         // Finds F, aka friction.
         friction = frictionCoefficient * normalForce;
 
         // Adds all forces together and calculate a new speed based on them.
-        sumOfAllForce = gravitationalForce + normalForce + friction;
+        sumOfAllForce = gravitationalForce + normalForce /*+ friction*/;
         acceleration = sumOfAllForce / mass;
         velocity += acceleration * Time.fixedDeltaTime;
         Debug.Log("Acceleration: " + acceleration + " | Velocity: " + velocity);

@@ -63,7 +63,7 @@ public class SlopeCreator : MonoBehaviour
         knot1.Position = SplineRef.transform.TransformDirection(p);
         
         Quaternion targetRot = new Quaternion(1, 1, 0, 1); // Ignore z
-        Debug.Log("Spline Quat: " + SplineRef.transform.rotation);
+
         knot1.Rotation = Quaternion.Inverse(SplineRef.transform.rotation);
         
 
