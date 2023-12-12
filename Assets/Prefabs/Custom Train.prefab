@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68dd053aef3e03241b55436db31a2cc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bIsTrain: 1
   spawnOffset: 0
 --- !u!54 &3688316567595791731
 Rigidbody:

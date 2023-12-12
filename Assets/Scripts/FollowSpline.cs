@@ -23,6 +23,8 @@ public class FollowSpline : MonoBehaviour
     float velocity;
     float acceleration;
 
+    public bool bIsTrain = false;
+
     public float spawnOffset = 0.0f;
 
     void Awake()
@@ -72,8 +74,14 @@ public class FollowSpline : MonoBehaviour
         sumOfAllForce = gravitationalForce + normalForce /*+ friction*/;
         acceleration = sumOfAllForce / mass;
         velocity += acceleration * Time.fixedDeltaTime;
-        Debug.Log("Acceleration: " + acceleration + " | Velocity: " + velocity);
 
         GetComponent<Rigidbody>().AddForce(transform.forward * velocity);
+
+        if (bIsTrain)
+        {
+            StatsUpdater.Instance.UpdateForce(sumOfAllForce);
+            StatsUpdater.Instance.UpdateVelocity(velocity);
+            StatsUpdater.Instance.UpdateAcceleration(acceleration);
+        }
     }
 }

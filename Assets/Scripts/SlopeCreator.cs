@@ -27,14 +27,6 @@ public class SlopeCreator : MonoBehaviour
         if (SplineRef != null)
         {
             knots = SplineRef.Spline.ToArray().ToList();
-            /*if (knots.Count != 0)
-            {
-                for (int i = 0; i < knots.Count; i++)
-                {
-                    Debug.Log("Knot " + (i + 1) + ": " + knots[i].Position);
-                }  
-            }
-            */
         }
     }
 
