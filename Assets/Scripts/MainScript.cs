@@ -64,7 +64,7 @@ public class MainScript : MonoBehaviour
                 // Assigning the values
                 trainStartingVelocity = UIValues.shippingPacket.startVel;
                 trainType = UIValues.shippingPacket.trainSelected;
-                /*customTrainMass = ;*/
+                customTrainMass = UIValues.shippingPacket.cTrainMass;
                 wagonMass = UIValues.shippingPacket.wagonWeight;
                 wagonAmount = UIValues.shippingPacket.numWagons;
                 Debug.Log("Values added");
