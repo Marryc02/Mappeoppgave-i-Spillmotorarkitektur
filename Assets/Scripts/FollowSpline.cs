@@ -9,15 +9,19 @@ public class FollowSpline : MonoBehaviour
 {
     private SplineContainer slope = null;
 
-    float velocity;
-    float acceleration;
+    
     float mass;
+    float gravity = 9.81f;
+    float gravitationalForce;
     Vector3 normal;
     Vector3 unitNormal;
     float normalForce;
-    float gravity = 9.81f;
-    float gravitationalForce;
+    // The coefficient of friction in our simulation is 0.6 as that number roughly represents the coeffcient of friction between to steel srufaces being rubbed against eachother.
+    float frictionCoefficient = 0.6f;
+    float friction;
     float sumOfAllForce;
+    float velocity;
+    float acceleration;
 
     public float spawnOffset = 0.0f;
 
@@ -51,14 +55,19 @@ public class FollowSpline : MonoBehaviour
         var rotation = Quaternion.Inverse(Quaternion.LookRotation(uForward, uUp));
         transform.rotation = Quaternion.LookRotation(forward, up) * rotation;
 
+        // Gets G, aka gravitational force.
         gravitationalForce = -gravity * mass;
-        // First find the normal in the current point, then do the following:
-            
+        
+        // Finds N, aka normal force.
         Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
         unitNormal = slopeUp.normalized;
         normalForce = Vector3.Dot(-(gravitationalForce * unitNormal), unitNormal);
 
-        sumOfAllForce = gravitationalForce + normalForce;
+        // Finds F, aka friction.
+        friction = frictionCoefficient * normalForce;
+
+        // Adds all forces together and calculate a new speed based on them.
+        sumOfAllForce = gravitationalForce + normalForce + friction;
         acceleration = sumOfAllForce / mass;
         velocity += acceleration;
         Debug.Log("Acceleration: " + acceleration + " | Velocity: " + velocity);
