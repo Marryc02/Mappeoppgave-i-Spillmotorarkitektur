@@ -29,7 +29,7 @@ public class MainScript : MonoBehaviour
     [HideInInspector] public float wagonMass;
 
 
-    List<GameObject> trainAndWagons;
+    [HideInInspector] public List<GameObject> trainAndWagons;
     bool trainsAndWagonsInstantiated = false;
     bool hasValidTrainInfo = false;
 
