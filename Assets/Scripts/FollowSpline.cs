@@ -56,7 +56,7 @@ public class FollowSpline : MonoBehaviour
             
         Vector3 slopeUp = slope.Spline.EvaluateUpVector(t);
         unitNormal = slopeUp.normalized;
-        normalForce = - Vector3.Dot(gravitationalForce * unitNormal, unitNormal);
+        normalForce = Vector3.Dot(-(gravitationalForce * unitNormal), unitNormal);
 
         sumOfAllForce = gravitationalForce + normalForce;
         acceleration = sumOfAllForce / mass;
